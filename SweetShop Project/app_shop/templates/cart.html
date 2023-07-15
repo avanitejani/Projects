@@ -145,7 +145,7 @@
                                                 <div class="product-detail">
                                                     <ul>
                                                         <li class="name">
-                                                             <a href="product-left-thumbnail.html">{{i.prd_id.pro_name}}</a>
+                                                             <a href="product-left-thumbnail.html"><span style="font-size: 24px; font-family:Gadugi; color:brown ";>{{i.prd_id.pro_name}}</span></a>
                                                         </li>
 
                                                            
@@ -155,8 +155,10 @@
                                         </td>
 
                                         <td class="price">
-                                            <h4 class="table-title text-content">Price</h4>
-                                            <h5>${{i.prd_id.pro_price}} <del class="text-content">$45.68</del></h5>
+                                            <h4 class="table-title text-content">Price.</h4>
+                                            <h5><span style="font-size: 22px">${{i.prd_id.pro_price}} </span>
+                                                {% comment %} <del class="text-content">$45.68</del> {% endcomment %}
+                                            </h5>
                                         </td>
 
                                         <td class="quantity">
@@ -181,7 +183,7 @@
 
                                         <td class="subtotal">  
                                             <h4 class="table-title text-content">Total</h4>
-                                            <h5>${{i.total}}</h5>
+                                            <h5><span style="font-size: 22px">${{i.total}}</span></h5>
                                         </td>
 
                                         <td class="save-remove">
@@ -224,25 +226,25 @@
                             <ul>
                                 <li>
                                     <h4>Subtotal</h4>
-                                    <h4 class="price">$125.65</h4>
+                                    <h4 class="price">${{final_total}}</h4>
                                 </li>
 
-                                <li>
+                                {% comment %} <li>
                                     <h4>Coupon Discount</h4>
                                     <h4 class="price">(-) 0.00</h4>
-                                </li>
+                                </li> {% endcomment %}
 
-                                <li class="align-items-start">
+                                {% comment %} <li class="align-items-start">
                                     <h4>Shipping</h4>
                                     <h4 class="price text-end">$6.90</h4>
-                                </li>
+                                </li> {% endcomment %}
                             </ul>
                         </div>
 
                         <ul class="summery-total">
                             <li class="list-total border-top-0">
                                 <h4>Total (USD)</h4>
-                                <h4 class="price theme-color">$132.58</h4>
+                                <h4 class="price theme-color">${{final_total}}</h4>
                             </li>
                         </ul>
 
@@ -250,7 +252,7 @@
                             <ul>
                                 <li>
                                     <button onclick="location.href = 'checkout.html';"
-                                        class="btn btn-animation proceed-btn fw-bold">Process To Checkout</button>
+                                        class="btn btn-animation proceed-btn fw-bold" id="pay-btn">Process To Checkout</button>
                                 </li>
 
                                 <li>
@@ -265,6 +267,37 @@
             </div>
         </div>
     </section>
+
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <script>
+    var options = {
+       
+      // Enter the Key ID generated from the Dashboard
+      key: "rzp_test_HOtGEmjhY2aifC",
+       
+      // Amount is in currency subunits.
+      // Default currency is INR. Hence,
+      // 50000 refers to 50000 paise
+      amount: "{{ final_total }}"*100,
+      currency: "INR",
+       
+      // Your/store name.
+      name: "Dj Razorpay",
+       
+      // Pass the `id` obtained in the response of Step 1
+      order_id: "{{ razorpay_order_id }}",
+      callback_url: "{{ callback_url }}",
+    };
+     
+    // initialise razorpay with the options.
+    var rzp1 = new Razorpay(options);
+     
+    // add event listener to the payment button.
+    document.getElementById("pay-btn").onclick = function (e) {
+      rzp1.open();
+      e.preventDefault();
+    };
+  </script>
 
     <!-- Cart Section End -->
 

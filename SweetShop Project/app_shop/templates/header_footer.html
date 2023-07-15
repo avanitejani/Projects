@@ -184,11 +184,14 @@
 
                                 <div class="search-box">
                                     <div class="input-group">
+                                        <form action={% url 'search' %} method="post">
+                                            {% csrf_token %}
                                         <input type="search" class="form-control" placeholder="I'm searching for..."
-                                            aria-label="Recipient's username" aria-describedby="button-addon2">
-                                        <button class="btn search-button-2" type="button" id="button-addon2">
+                                            aria-label="Recipient's username" aria-describedby="button-addon2" name="ser">
+                                        <button class="btn search-button-2" type="submit" id="button-addon2">
                                             <i data-feather="search"></i>
                                         </button>
+                                    </form>
                                     </div>
                                 </div>
                             </div>
@@ -243,49 +246,35 @@
                                             <div class="onhover-div">
                                                 <ul class="cart-list">
                                                     <li class="product-box-contain">
+                                                        {% for i in all_cart %}
+
                                                         <div class="drop-cart">
                                                             <a href="product-left-thumbnail.html" class="drop-image">
-                                                                <img src="{% static 'assets/images/vegetable/product/1.png' %}"
-                                                                    class="blur-up lazyload" alt="">
+                                                                <img src="{{i.prd_id.pro_image.url}}"
+                                                                    class="blur-up lazyload" alt="" height="50px" width="40px">
                                                             </a>
 
                                                             <div class="drop-contain">
                                                                 <a href="product-left-thumbnail.html">
-                                                                    <h5>Fantasy Crunchy Choco Chip Cookies</h5>
+                                                                    <h5><span style="font-size: 22px; font-family:Gadugi; color:brown ";>{{i.prd_id.pro_name}}</span></h5>
                                                                 </a>
-                                                                <h6><span>1 x</span> $80.58</h6>
+                                                                <h6><span>1 x</span> ${{i.prd_id.pro_price}}</h6>
                                                                 <button class="close-button close_button">
                                                                     <i class="fa-solid fa-xmark"></i>
                                                                 </button>
                                                             </div>
                                                         </div>
+
+                                                        {% endfor %}
                                                     </li>
 
-                                                    <li class="product-box-contain">
-                                                        <div class="drop-cart">
-                                                            <a href="product-left-thumbnail.html" class="drop-image">
-                                                                <img src="{% static 'assets/images/vegetable/product/2.png' %}"
-                                                                    class="blur-up lazyload" alt="">
-                                                            </a>
-
-                                                            <div class="drop-contain">
-                                                                <a href="product-left-thumbnail.html">
-                                                                    <h5>Peanut Butter Bite Premium Butter Cookies 600 g
-                                                                    </h5>
-                                                                </a>
-                                                                <h6><span>1 x</span> $25.68</h6>
-                                                                <button class="close-button close_button">
-                                                                    <i class="fa-solid fa-xmark"></i>
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                    </li>
+         
                                                 </ul>
 
                                                 <div class="price-box">
                                                     <h5>Total :</h5>
-                                                    <h4 class="theme-color fw-bold">$106.58</h4>
-                                                </div>
+                                                    <h4 class="theme-color fw-bold">${{final_total}}</h4>
+                                                </div> 
 
                                                 <div class="button-group">
                                                     <a href="{% url 'show_cart'  %}"  class="btn btn-sm cart-button">View Cart</a>
@@ -293,6 +282,8 @@
                                                     text-white">Checkout</a>
                                                 </div>
                                             </div>
+                                                                                        
+
                                         </div>
                                     </li>
                                     <li class="right-side onhover-dropdown">
@@ -308,38 +299,52 @@
 
                                         <div class="onhover-div onhover-div-login">
                                             <ul class="user-box-name">
-                                                <li class="product-box-contain">
-                                                    <i></i>
+
+                                                <div class="button-group">
+                                                    <a href={% url 'login'  %} "login.html" class="btn btn-sm cart-button">Log In</a>    
+                                                </div>
+
+                                                {% comment %} <li class="product-box-contain">    
                                                     <a href= {% url 'login' %} "login.html">Log In</a>
-                                                </li>
+                                                </li> {% endcomment %}
 
-                                                <li class="product-box-contain">
-                                                    {% comment %} <a href="{% url 'register' %}">Register</a> {% endcomment %}
+                                                <div class="button-group">
+                                                    <a href={% url 'register'  %} "sign-up.html" class="btn btn-sm cart-button">Register</a>    
+                                                </div>
+
+                                                {% comment %} <li class="product-box-contain">
                                                     <a href= {% url 'register' %} "sign-up.html">Register</a>
+                                                </li> {% endcomment %}
 
-                                                </li>
+                                                <div class="button-group">
+                                                    <a href={% url 'logout'  %} "login.html" class="btn btn-sm cart-button">Logout</a>    
+                                                </div>
 
-                                                <li class="product-box-contain">
-                                                    {% comment %} <a href="{% url 'register' %}">Register</a> {% endcomment %}
+                                                {% comment %} <li class="product-box-contain">
                                                     <a href= {% url 'logout' %} >logout</a>
+                                                </li> {% endcomment %}
 
-                                                </li>
 
-                                                <li class="product-box-contain">
-                                                    {% comment %} <a href="{% url 'register' %}">Register</a> {% endcomment %}
+                                                <div class="button-group">
+                                                    <a href={% url 'profile'  %} "login.html" class="btn btn-sm cart-button">Profile</a>    
+                                                </div>
+
+                                                {% comment %} <li class="product-box-contain">
                                                     <a href= {% url 'profile' %} >Profile</a>
+                                                </li> {% endcomment %}
 
-                                                </li>
 
-                                                <li class="product-box-contain">
-                                                    {% comment %} <a href="{% url 'register' %}">Register</a> {% endcomment %}
+                                                <div class="button-group">
+                                                    <a href={% url 'show_products'  %} "login.html" class="btn btn-sm cart-button">Show Products</a>    
+                                                </div>
+
+                                                {% comment %} <li class="product-box-contain">
                                                     <a href= {% url 'show_products' %} >Show Products</a>
+                                                </li> {% endcomment %}
 
-                                                </li>
-
-                                                <li class="product-box-contain">
+                                                {% comment %} <li class="product-box-contain">
                                                     <a href="forgot.html">Forgot Password</a>
-                                                </li>
+                                                </li> {% endcomment %}
                                             </ul>
                                         </div>
                                     </li>

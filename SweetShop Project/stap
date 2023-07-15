@@ -52,6 +52,24 @@ Superuser created successfully.
 python manage.py runserver
 
 
+pyment in cmd terminal
+pip install razorpay
+
+
+
+------- install Git Bash from googal ---------
+
+open git Bash terminal  (one Time)
+$ git config --global user.name "avanitejani" (Use GitHub user name)  prees Enter....
+$ git config --global user.email "avanitejani@gmail.com" (Use GitHub Gmail id)  prees Enter....
+
+open Command Prompt (cmd) terminal
+$ pip freeze > req.txt prees Enter....
+$ touch .gitignore
+
+
+
+
 
 goto installed_apps section and add our appname
 

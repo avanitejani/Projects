@@ -31,7 +31,10 @@ urlpatterns = [
    path('show_cart/',views.show_cart,name='show_cart'),
    path('remove_cart/<int:pk>',views.remove_cart,name='remove_cart'),
    path('update_cart/',views.update_cart,name='update_cart'),
-   
+   path('paymenthandler/', views.paymenthandler, name='paymenthandler'),
+   path('search/',views.search,name='search'),
+
+
    
 #    path('otp/', views.otp_view, name='otp'),
 
