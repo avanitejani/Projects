@@ -301,45 +301,58 @@
                                                 <i data-feather="user"></i>
                                             </div>
                                             <div class="delivery-detail">
-                                                <h6>Hello,</h6>
+                                                {% comment %} <h6>Hello,</h6> {% endcomment %}
                                                 <h5>My Account</h5>
                                             </div>
                                         </div>
 
                                         <div class="onhover-div onhover-div-login">
                                             <ul class="user-box-name">
+                                                
+                                                <div class="button-group">
+                                                    <a href={% url 'seller_login'  %} "login.html" class="btn btn-sm cart-button">Log In</a>    
+                                                </div>
 
-                                                <li class="product-box-contain">
+
+                                                <div class="button-group">
+                                                    <a href={% url 'seller_register'  %} "sign-up.html" class="btn btn-sm cart-button">Register</a>    
+                                                </div>
+
+
+                                                <div class="button-group">
+                                                    <a href={% url 'seller_logout'  %} "login.html" class="btn btn-sm cart-button">Logout</a>    
+                                                </div>
+
+
+                                                <div class="button-group">
+                                                    <a href={% url 'seller_profile'  %} "login.html" class="btn btn-sm cart-button">Profile</a>    
+                                                </div>
+
+                                                <div class="button-group">
+                                                    <a href={% url 'add_product'  %} "login.html" class="btn btn-sm cart-button">Add Product</a>    
+                                                </div>
+
+                                                <div class="button-group">
+                                                    <a href={% url 'seller_show_products'  %} "login.html" class="btn btn-sm cart-button">Show Products</a>    
+                                                </div>
+
+                                                
+
+                                                {% comment %} <li class="product-box-contain">
                                                     <i></i>
                                                     <a href=  {% url 'add_product' %} >Add Product</a>
-                                                </li>
+                                                </li> {% endcomment %}
 
-                                                <li class="product-box-contain">
-                                                    <i></i>
-                                                    <a href=  {% url 'login' %} "seller_login.html">Log In</a>
-                                                </li>
+                                             
 
-                                                <li class="product-box-contain">
-                                                    {% comment %} <a href="{% url 'register' %}">Register</a> {% endcomment %}
-                                                    <a href= {% url 'register' %} "seller_sign-up.html">Register</a>
 
-                                                </li>
+                            
 
-                                                <li class="product-box-contain">
-                                                    {% comment %} <a href="{% url 'register' %}">Register</a> {% endcomment %}
-                                                    <a href= {% url 'logout' %} >logout</a>
+                                 
 
-                                                </li>
-
-                                                <li class="product-box-contain">
-                                                    {% comment %} <a href="{% url 'register' %}">Register</a> {% endcomment %}
-                                                    <a href= {% url 'profile' %} >Profile</a>
-
-                                                </li>
-
-                                                <li class="product-box-contain">
+                                                {% comment %} <li class="product-box-contain">
                                                     <a href="forgot.html">Forgot Password</a>
-                                                </li>
+                                                </li> {% endcomment %}
                                             </ul>
                                         </div>
                                     </li>

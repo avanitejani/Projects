@@ -8,10 +8,10 @@ from django.contrib.auth.hashers import make_password,check_password
 
 
 # Create your views here.
-def seller_index(request):
+def index(request):
     return render(request,"seller_index.html")
 
-def register(request):
+def seller_register(request):
     if request.method=="POST":
         global temp
         temp={
@@ -48,7 +48,7 @@ def otp(request):
     else: 
         return render(request,"seller_sign-up.html")
     
-def login(request):
+def seller_login(request):
     if request.method=="POST":
         try:
             User_data = Seller_user.objects.get(email = request.POST["email"])
@@ -62,7 +62,7 @@ def login(request):
     else:
         return render(request,"seller_login.html")
     
-def logout(request):
+def seller_logout(request):
     del request.session["email"]
     return render(request,"seller_login.html",{"msg":"Logout Successfully"})
 
@@ -83,7 +83,7 @@ def add_product(request):
         return render(request,"add_product.html",{"seller_data":seller_data})
     
 
-def profile(request):
+def seller_profile(request):
     data=Seller_user.objects.get(email=request.session["email"])
     if request.method=="POST":    
         try:
@@ -108,15 +108,25 @@ def profile(request):
     else:
         return render(request,"seller_profile.html",{"data":data})
     
-def view_product(request):
-    seller_data=Seller_user.object.get(email=request.session["email"])
-    my_product=Product.object.objects.filter(id=seller_data)
-    return render(request,"my_product.html",{"my_product",my_product})
+# def seller_view_product(request):
+#     seller_data=Seller_user.object.get(email=request.session["email"])
+#     my_product=Product.object.objects.filter(id=seller_data)
+#     return render(request,"my_product.html",{"my_product",my_product})
     
 
-# def show_products(request):
-#     all_product=Product.objects.all()
-#     return render(request,"seller_shop-list.html",{"all_product":all_product})
+def seller_show_products(request):
+    all_product=Product.objects.all()
+    return render(request,"seller_shop-list.html",{"all_product":all_product})
+
+# def singal(request):
+#     url = "https://api.countrystatecity.in/v1/countries/BD"
+
+#     headers={
+#         "X-CSCAPI-KEY": "UXF20HQ2WJBMT1Y5Q05MQzVhNE1sT3VJSk02Y3BaNz1RNHRVMHRjZA=="
+#     }
+
+#     mydata = requests.request("GEt")
+
 
 
 

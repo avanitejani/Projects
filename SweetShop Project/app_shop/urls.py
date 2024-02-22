@@ -33,6 +33,12 @@ urlpatterns = [
    path('update_cart/',views.update_cart,name='update_cart'),
    path('paymenthandler/', views.paymenthandler, name='paymenthandler'),
    path('search/',views.search,name='search'),
+   path('checkout/',views.checkout,name='checkout'),
+   path('countries/',views.countries,name='countries'),
+   path('single/',views.single,name='single'),
+   path('con_ser/',views.con_ser,name='con_ser'),
+   
+
 
 
    

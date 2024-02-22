@@ -7,6 +7,14 @@ from app_seller.models import *
 from django.db.models import Q
 from django.contrib.auth.hashers import make_password,check_password
 
+from django.shortcuts import render
+import razorpay
+import requests
+
+from django.conf import settings
+from django.views.decorators.csrf import csrf_exempt
+from django.http import HttpResponseBadRequest
+
 
 # Create your views here.
 def index(request):
@@ -15,7 +23,7 @@ def index(request):
 def register(request):
     if request.method=="POST":
         global temp
-        temp={
+        temp={ 
             "name":request.POST["name"],
             "email":request.POST["email"],
             "password":request.POST["pswd"]# pswd =sing-up.html se fild name hai
@@ -100,6 +108,7 @@ def single_product(request,pk):
      one_product=Product.objects.get(id=pk)
      return render(request,"product-left-thumbnail.html",{"one_product":one_product})
 
+
 def add_to_cart(request,pk):
     data=User.objects.get(email=request.session["email"])
 
@@ -119,14 +128,25 @@ def add_to_cart(request,pk):
         )
         return single_product(request,pk)
     
+def checkout(request):
+    # data=User.objects.get(email=request.session["email"])
+    # all_cart=Cart.objects.filter(buyer_id=data.id)
+    # final_total=0
+    # for i in all_cart:
+    #     final_total+=i.total
+    return render(request,"checkout.html")
+
+     
+    
 
 def show_cart(request):
     data=User.objects.get(email=request.session["email"])
     all_cart=Cart.objects.filter(buyer_id=data.id)
-    final_total=0
+    sub_total=0
     for i in all_cart:
-        final_total+=i.total
-    return render(request,"cart.html",{"all_cart":all_cart,"final_total":final_total})
+        sub_total+=i.total
+    final_total=sub_total+8
+    return render(request,"cart.html",{"all_cart":all_cart,"sub_total":sub_total,"final_total":final_total})
 
 
 def remove_cart(request,pk):
@@ -157,12 +177,53 @@ def search(request):
     
 
 
-from django.shortcuts import render
-import razorpay 
-from django.conf import settings
-from django.views.decorators.csrf import csrf_exempt
-from django.http import HttpResponseBadRequest
 
+
+def countries(request):
+    url = "https://api.countrystatecity.in/v1/countries"
+
+    headers = {
+    "X-CSCAPI-KEY": "UXF2OHQ2WjBMT1Y5Q05MQzVhNE1sT3VJSk02Y3BaNzlRNHRVMHRjZA=="
+    }
+
+    mydata =  requests.request("GET", url, headers=headers)
+    return render(request,'country.html',{"mydata":mydata.json()})
+
+
+def single(request):
+    url = "https://api.countrystatecity.in/v1/countries/BD"
+
+    headers = {
+    "X-CSCAPI-KEY": "UXF2OHQ2WjBMT1Y5Q05MQzVhNE1sT3VJSk02Y3BaNzlRNHRVMHRjZA=="
+    }
+
+    mydata = requests.request("GET", url, headers=headers)
+    return render(request,'one_country.html',{"mydata":mydata.json()})
+
+def con_ser(request):
+    if request.method=="POST":
+          item=request.POST["con"]
+          url = "https://api.countrystatecity.in/v1/countries/BD"
+          headers = {
+          "X-CSCAPI-KEY": "UXF2OHQ2WjBMT1Y5Q05MQzVhNE1sT3VJSk02Y3BaNzlRNHRVMHRjZA=="
+          }
+
+          all_country = requests.request("GET", url, headers=headers).json()
+          for i in all_country:
+                if i["name"]==item.title():
+                    my_id=i["iso2"] 
+          try: 
+                url = "https://api.countrystatecity.in/v1/countries/{my_id}"
+                headers = {
+                "X-CSCAPI-KEY": "UXF2OHQ2WjBMT1Y5Q05MQzVhNE1sT3VJSk02Y3BaNzlRNHRVMHRjZA=="
+                }
+                mydata = requests.request("GET", url, headers=headers).json()
+                return render(request,'concer.html',{"mydata":mydata})
+
+          except:
+                return render(request,'concer.html',{"msg":"Not found"})
+    else:
+          return render(request,"concer.html")
 
 # authorize razorpay client with API Keys.
 razorpay_client = razorpay.Client(
@@ -216,6 +277,8 @@ def paymenthandler(request):
 	else:
 	# if other than POST request is made.
 		return HttpResponseBadRequest()
+
+
 
 
 

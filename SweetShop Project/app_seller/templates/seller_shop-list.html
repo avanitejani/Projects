@@ -1,4 +1,4 @@
-{% comment %} {% extends 'header_footer.html' %} {% block content %}{% load static %}
+{% extends 'header_footer.html' %} {% block content %}{% load static %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -185,20 +185,20 @@
 
                     <div
                         class="row g-sm-4 g-3 row-cols-xxl-4 row-cols-xl-3 row-cols-lg-2 row-cols-md-3 row-cols-2 product-list-section list-style">
+                        {% for i in all_product %}
                         <div>
                             <div class="product-box-3 h-100 wow fadeInUp">
 
-                                {% for i in all_product%}
 
                                 <div class="product-header">
                                     <div class="product-image">
                                         <img src="{{i.pro_image.url}}" alt=""height="170px" width="150px">
                                         <ul class="product-option">
                                             <li data-bs-toggle="tooltip" data-bs-placement="top" title="View">
-                                                <a href="javascript:void(0)" data-bs-toggle="modal"
+                                                {% comment %} <a href="javascript:void(0)"  data-bs-toggle="modal"
                                                     data-bs-target="#view">
                                                     <i data-feather="eye"></i>
-                                                </a>
+                                                </a> {% endcomment %}
                                             </li>
                                         </ul> 
                                     </div>
@@ -208,8 +208,11 @@
                                             <h5 class="name">
                                                 <a href="">{{i.pro_name}}</a>
                                             </h5>
-                                        </a>
+
+
+                                        <h5> <a href="{%url 'single_product' i.id %}" class="name">View Product </a> </h5>
                                 
+                                        
                                         <h5 class="price"><span class="theme-color">${{i.pro_price}}</span> 
                                         </h5>
                                          <div class="add-to-cart-box bg-white">
@@ -237,9 +240,9 @@
                                 </div>
 
 
-                            {% endfor %}
                             </div>
                         </div>
+                        {% endfor %}
 
 
                     </div>
@@ -281,6 +284,7 @@
         <div class="modal-dialog modal-dialog-centered modal-xl modal-fullscreen-sm-down">
             <div class="modal-content">
                 <div class="modal-header p-0">
+
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                         <i class="fa-solid fa-xmark"></i>
                     </button>
@@ -289,15 +293,17 @@
                     <div class="row g-sm-4 g-2">
                         <div class="col-lg-6">
                             <div class="slider-image">
-                                <img src="{% static 'assets/images/product/category/1.jpg' %}" class="img-fluid blur-up lazyload"
-                                    alt="">
+                                <img src="{{one_product.pro_image.url}}" alt="">
+
+                                {% comment %} <img src="{% static 'assets/images/product/category/1.jpg' %}" class="img-fluid blur-up lazyload"
+                                    alt=""> {% endcomment %}
                             </div>
                         </div>
 
                         <div class="col-lg-6">
                             <div class="right-sidebar-modal">
-                                <h4 class="title-name">Peanut Butter Bite Premium Butter Cookies 600 g</h4>
-                                <h4 class="price">$36.99</h4>
+                                <h4 class="title-name">{{one_product.pro_name}}</h4>
+                                <h4 class="price">${{one_product.pro_price}}</h4>
                                 <div class="product-rating">
                                     <ul class="rating">
                                         <li>
@@ -322,10 +328,7 @@
 
                                 <div class="product-detail">
                                     <h4>Product Details :</h4>
-                                    <p>Candy canes sugar plum tart cotton candy chupa chups sugar plum chocolate I love.
-                                        Caramels marshmallow icing dessert candy canes I love soufflé I love toffee.
-                                        Marshmallow pie sweet sweet roll sesame snaps tiramisu jelly bear claw. Bonbon
-                                        muffin I love carrot cake sugar plum dessert bonbon.</p>
+                                    <p>{{one_product.pro_desc}}</p>
                                 </div>
 
                                 <ul class="brand-list">
@@ -679,4 +682,4 @@
 <!-- Mirrored from themes.pixelstrap.com/fastkart/front-end/shop-list.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 21 Jun 2023 06:44:24 GMT -->
 </html>
 
-{% endblock %} {% endcomment %}
+{% endblock %}

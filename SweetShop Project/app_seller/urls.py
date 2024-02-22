@@ -19,14 +19,14 @@ from django.urls import path
 from.import views
 
 urlpatterns = [
-   path('',views.seller_index,name='seller_index'),
+   path('',views.index,name='seller_index'),
    path('add_product/',views.add_product,name='add_product'),
-   path('register/',views.register,name='register'),
+   path('seller_register/',views.seller_register,name='seller_register'),
    path('otp/',views.otp,name='otp'),
-   path('login/',views.login,name='login'),
-   path('logout/',views.logout,name='logout'),
-   path('profile/',views.profile,name='profile'),
-#    path('show_products/',views.show_products,name='show_products')
+   path('seller_login/',views.seller_login,name='seller_login'),
+   path('seller_logout/',views.seller_logout,name='seller_logout'),
+   path('seller_profile/',views.seller_profile,name='seller_profile'),
+   path('seller_show_products/',views.seller_show_products,name='seller_show_products')
 
 
 

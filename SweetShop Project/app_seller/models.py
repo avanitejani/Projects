@@ -16,4 +16,4 @@ class Product(models.Model):
     pro_image=models.FileField(upload_to="product/",default="pro.jpg")
     pro_desc=models.TextField(max_length=500)
     seller_id=models.ForeignKey(Seller_user,on_delete=models.CASCADE)
-
+    

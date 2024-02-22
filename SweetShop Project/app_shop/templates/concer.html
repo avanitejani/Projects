@@ -1,0 +1,47 @@
+<!DOCTYPE html> 
+<html lang="en">
+    <head>
+        <title>
+            hello
+        </title>
+    </head>
+    
+    <body>
+    <h2>country Name</h2> 
+    {{msg}}  
+    <form action="{% url 'con_ser' %}" method="post">
+        {%csrf_token%}
+    <input type="submit" id="myInput" placeholder="Search for names..." title="Type in a name" name="con">
+    <input tupe="submit" id="myInput" value="Search">    
+    <table id="myTable">
+            <tr>
+                <th>id</th>
+                <th>name</th>
+                <th>iso3</th>
+                <th>iso2</th>
+                <th>phanecode</th>
+                <th>capital</th>
+                <th>currency</th>
+                <th>native</th>
+
+            </tr>
+            {% if mydata %}
+            <tr>
+                <td>{{mydata.id}}</td>
+                <td>{{mydata.name}}</td>
+                <td>{{mydata.iso3}}</td>
+                <td>{{mydata.iso2}}</td>
+                <td>{{mydata.phanecode}}</td>
+                <td>{{mydata.capital}}</td>
+                <td>{{mydata.currency}}</td>
+                <td>{{mydata.native}}</td>
+
+
+            </tr>
+            {% endif %}
+    </table>
+
+
+      </body>
+    
+</html>
